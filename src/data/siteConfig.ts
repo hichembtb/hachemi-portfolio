@@ -4,7 +4,7 @@ export const siteConfig = {
   handle: "hechcode",
   title: "Mobile App Developer & Software Engineer",
   tagline: "Crafting robust, fluid, and scalable mobile & web applications with Flutter, Dart, Firebase, and modern web technologies.",
-  email: "hachemi.boutalbi.dev@gmail.com",
+  email: "hachemi.boutalbi@gmail.com",
   location: "Algeria (Available Worldwide / Remote)",
   status: "Available for freelance projects & engineering roles",
   bio: "Passionate Mobile Application Developer with deep expertise in Flutter, Dart, Firebase, and state-driven architecture. I specialize in turning complex requirements into intuitive, blazing-fast cross-platform applications with clean code and modern UI/UX.",
@@ -12,7 +12,7 @@ export const siteConfig = {
     github: "https://github.com/hichembtb",
     linkedin: "https://www.linkedin.com/in/hachemi-boutalbi/",
     playStore: "https://play.google.com/store/apps/details?id=com.hachemiboutalbi.popo",
-    originalSite: "https://dev-hechcode.pantheonsite.io/",
+    originalSite: "https://hachemibtb.netlify.app/",
   },
   navItems: [
     { label: "Home", href: "/" },

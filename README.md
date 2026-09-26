@@ -6,7 +6,7 @@ A modern personal developer portfolio built with Next.js, TypeScript, and Tailwi
 
 ### Quick Links
 
-<!-- - **Live Portfolio:** [dev-hechcode.pantheonsite.io](https://dev-hechcode.pantheonsite.io/) -->
+- **Live Portfolio:** [hachemibtb.netlify.app](https://hachemibtb.netlify.app/)
 - **GitHub Repository:** [github.com/hichembtb/hachemi-portfolio](https://github.com/hichembtb/hachemi-portfolio)
 - **LinkedIn Profile:** [linkedin.com/in/hachemi-boutalbi](https://www.linkedin.com/in/hachemi-boutalbi/)
 
