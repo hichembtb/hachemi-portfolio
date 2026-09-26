@@ -12,6 +12,7 @@ import {
   Clock,
   Sparkles,
   Smartphone,
+  AlertCircle,
 } from "lucide-react";
 import { GithubIcon, LinkedInIcon } from "@/components/ui/Icons";
 
@@ -21,21 +22,61 @@ export const ContactForm: React.FC = () => {
     email: "",
     subject: "",
     message: "",
+    "bot-field": "",
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [copiedEmail, setCopiedEmail] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const encode = (data: Record<string, string>) => {
+    return Object.keys(data)
+      .map(
+        (key) => encodeURIComponent(key) + "=" + encodeURIComponent(data[key])
+      )
+      .join("&");
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setErrorMessage(null);
 
-    // Simulate reliable submission & redirect or mailto option
-    setTimeout(() => {
+    // Spam honeypot check (if bot filled hidden field)
+    if (formData["bot-field"]) {
       setIsSubmitting(false);
       setIsSubmitted(true);
-    }, 800);
+      return;
+    }
+
+    try {
+      const response = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: encode({
+          "form-name": "contact",
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        }),
+      });
+
+      if (response.ok) {
+        setIsSubmitted(true);
+      } else {
+        setErrorMessage(
+          "There was an issue delivering your message via Netlify Forms. Please try again or reach out directly by email."
+        );
+      }
+    } catch {
+      setErrorMessage(
+        "Network connection error. Please check your internet connection or email me directly."
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleCopyEmail = () => {
@@ -157,16 +198,17 @@ export const ContactForm: React.FC = () => {
               </div>
               <h3 className="text-2xl font-bold text-white">Message Sent Successfully!</h3>
               <p className="text-gray-300 text-sm max-w-md mx-auto leading-relaxed">
-                Thank you, {formData.name || "friend"}! I have received your message and will get back to you shortly.
+                Thank you, {formData.name || "friend"}! Your message has been delivered through Netlify Forms and I will get back to you shortly.
               </p>
               <div className="pt-4 flex justify-center gap-3">
                 <button
                   type="button"
                   onClick={() => {
                     setIsSubmitted(false);
-                    setFormData({ name: "", email: "", subject: "", message: "" });
+                    setErrorMessage(null);
+                    setFormData({ name: "", email: "", subject: "", message: "", "bot-field": "" });
                   }}
-                  className="px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-white text-xs font-medium transition-colors"
+                  className="px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-white text-xs font-medium transition-colors cursor-pointer"
                 >
                   Send another message
                 </button>
@@ -179,13 +221,51 @@ export const ContactForm: React.FC = () => {
               </div>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-5">
+            <form
+              name="contact"
+              method="POST"
+              data-netlify="true"
+              data-netlify-honeypot="bot-field"
+              onSubmit={handleSubmit}
+              className="space-y-5"
+            >
+              {/* Hidden inputs required for Netlify Forms & Honeypot */}
+              <input type="hidden" name="form-name" value="contact" />
+              <div className="hidden" aria-hidden="true">
+                <label>
+                  Don’t fill this out if you are human:{" "}
+                  <input
+                    name="bot-field"
+                    tabIndex={-1}
+                    value={formData["bot-field"]}
+                    onChange={(e) =>
+                      setFormData({ ...formData, "bot-field": e.target.value })
+                    }
+                  />
+                </label>
+              </div>
+
               <div className="space-y-1">
                 <h3 className="text-xl font-bold text-white">Send a Message</h3>
                 <p className="text-xs text-gray-400">
                   Fill in the details below and I will respond as soon as possible.
                 </p>
               </div>
+
+              {/* Error Message Alert */}
+              {errorMessage && (
+                <div
+                  role="alert"
+                  aria-live="polite"
+                  className="p-4 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs sm:text-sm flex items-start gap-3"
+                >
+                  <AlertCircle className="w-5 h-5 text-rose-400 shrink-0 mt-0.5" />
+                  <div className="flex-1">
+                    <p className="font-semibold text-rose-200">Unable to send message</p>
+                    <p className="mt-0.5 text-rose-300/90">{errorMessage}</p>
+                  </div>
+                </div>
+              )}
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
@@ -194,6 +274,7 @@ export const ContactForm: React.FC = () => {
                   </label>
                   <input
                     id="name"
+                    name="name"
                     type="text"
                     required
                     value={formData.name}
@@ -211,6 +292,7 @@ export const ContactForm: React.FC = () => {
                   </label>
                   <input
                     id="email"
+                    name="email"
                     type="email"
                     required
                     value={formData.email}
@@ -229,6 +311,7 @@ export const ContactForm: React.FC = () => {
                 </label>
                 <input
                   id="subject"
+                  name="subject"
                   type="text"
                   value={formData.subject}
                   onChange={(e) =>
@@ -245,6 +328,7 @@ export const ContactForm: React.FC = () => {
                 </label>
                 <textarea
                   id="message"
+                  name="message"
                   required
                   rows={5}
                   value={formData.message}
