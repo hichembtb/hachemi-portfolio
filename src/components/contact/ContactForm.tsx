@@ -51,7 +51,7 @@ export const ContactForm: React.FC = () => {
     }
 
     try {
-      const response = await fetch("/", {
+      const response = await fetch("/__forms.html", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: encode({
@@ -224,6 +224,7 @@ export const ContactForm: React.FC = () => {
             <form
               name="contact"
               method="POST"
+              action="/__forms.html"
               data-netlify="true"
               data-netlify-honeypot="bot-field"
               onSubmit={handleSubmit}
