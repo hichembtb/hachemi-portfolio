@@ -5,7 +5,7 @@ import { projects } from "@/data/projects";
 import { ProjectCard } from "@/components/projects/ProjectCard";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Button } from "@/components/ui/Button";
-import { ArrowRight, Sparkles, Layers } from "lucide-react";
+import { ArrowRight, Layers } from "lucide-react";
 
 export const FeaturedProjects: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
