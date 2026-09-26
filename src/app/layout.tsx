@@ -4,10 +4,10 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import "./globals.css";
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://hachemibtb.netlify.app";
+
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "https://dev-hechcode.pantheonsite.io"
-  ),
+  metadataBase: new URL(siteUrl),
   title: {
     default: `${siteConfig.name} (${siteConfig.handle}) — ${siteConfig.title}`,
     template: `%s | ${siteConfig.name}`,
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: siteConfig.links.originalSite,
+    url: siteUrl,
     title: `${siteConfig.name} — ${siteConfig.title}`,
     description: siteConfig.tagline,
     siteName: `${siteConfig.name} Portfolio`,

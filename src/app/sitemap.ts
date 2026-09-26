@@ -2,7 +2,7 @@ import { MetadataRoute } from "next";
 import { projects } from "@/data/projects";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://dev-hechcode.pantheonsite.io";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://hachemibtb.netlify.app";
 
   const staticRoutes = [
     "",
