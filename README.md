@@ -16,8 +16,6 @@ A modern personal developer portfolio built with Next.js, TypeScript, and Tailwi
 
 ![Portfolio Preview](./public/readme/portfolio-preview.png)
 
-> **Note:** To customize this preview with a direct screenshot of your homepage, place an updated image at `./public/readme/portfolio-preview.png`.
-
 ---
 
 ## About
