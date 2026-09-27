@@ -55,8 +55,8 @@ export const Hero: React.FC = () => {
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 pt-1">
               <Badge variant="cyan">Flutter & Dart</Badge>
               <Badge variant="emerald">Firebase Cloud</Badge>
-              <Badge variant="violet">GetX State Mgmt</Badge>
-              <Badge variant="amber">Hive Local DB</Badge>
+              <Badge variant="violet">Bloc & Cubit</Badge>
+              <Badge variant="amber">Local DB</Badge>
               <Badge variant="neutral">Next.js & TypeScript</Badge>
             </div>
 
@@ -122,7 +122,7 @@ export const Hero: React.FC = () => {
                     <span className="text-violet-400">extends</span>{" "}
                     <span className="text-amber-300">GetxController</span> &#123;
                   </div>
-                  
+
                   <div className="pl-4 space-y-1.5 border-l border-white/10 ml-2">
                     <div>
                       <span className="text-gray-500">&#47;&#47; Core Identity</span>
