@@ -128,7 +128,7 @@ export const projects: Project[] = [
         icon: "HelpCircle"
       }
     ],
-    coverImage: "/images/projects/yas-home/phone-responsive.png",
+    coverImage: "/images/projects/yas-home-portfolio.png",
     galleryImages: [
       "/images/projects/yas-home/phone-responsive.png",
       "/images/projects/yas-home/screenshot_1.png",
